@@ -1,0 +1,41 @@
+Game	//the overall Game object that regulates a game
+	Time	//definition of advancement, status and events associated with the progress of a game
+		Stage	//the minimum unit of time in a game: 1 turn in chess, 1 phase in yugioh, etc
+			Character:owner
+		Turn
+		Event()[]	//functions that regulate the progress of the game
+			Advance(Stage)	//function that advances 1 stage
+
+
+	Zone	//An area within the game: Hand, Deck, Chessboard grid, etc
+		Character:owner
+		Character[]:occupier
+		Event()[]	//group of functions that defines the events on this zone
+			entry()
+			exit()
+			timer()
+			etc
+
+
+	Character	//A character on the board: player, chesspiece, a card, etc
+		Character:owner
+		Attributes	//group of variables that defines the attributes of this Character
+		Event()[]	//group of functions that defines the actions of this Character
+			spawn()
+			triggerMotion(Motion)
+			destruct()
+			etc
+					
+		
+				
+	Motion	//an event occurring across zones
+		Zone[]:origin
+		Zone[]:destination
+		Event()[]	//group of functions that defines this Motion
+			Ruleset->conditionCheck()
+			etc
+	
+	Ruleset	//a set of (static?) (abstract?) functions that is to be referred to by other classes as "rules"
+		EndGameCondition()
+		MotionCondition()
+		etc
