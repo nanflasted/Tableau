@@ -34,8 +34,11 @@ Game	//the overall Game object that regulates a game
 		Event()[]	//group of functions that defines this Motion
 			Ruleset->conditionCheck()
 			etc
-	
+
+	//after lengthy debates it is currently decided that the implementation of rules should be left to developers themselves
+	/*
 	Ruleset	//a set of (static?) (abstract?) functions that is to be referred to by other classes as "rules"
 		EndGameCondition()
 		MotionCondition()
 		etc
+	*/

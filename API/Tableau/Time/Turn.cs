@@ -7,7 +7,6 @@ namespace Tableau
 			public string name = "";
 			public int ID = 0;
 			public Character owner;
-			public Ruleset turnRuleset;
 			public Queue<Action> events;
 			public List<Phase> phases;
 			private int current = 0;
@@ -58,6 +57,7 @@ namespace Tableau
 				current++;
 				return 0;
 			}
+			
 		}
 	}
 }

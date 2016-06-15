@@ -7,7 +7,6 @@ namespace Tableau
 			public string name;
 			public int ID;
 			public Character owner;
-			public Ruleset phaseRules;
 			public Queue<Action> events;
 			
 			public Phase(string name, int ID)
