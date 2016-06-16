@@ -18,13 +18,16 @@ Game	//the overall Game object that regulates a game
 
 
 	Character	//A character on the board: player, chesspiece, a card, etc
-		Character:owner
-		Attributes	//group of variables that defines the attributes of this Character
-		Event()[]	//group of functions that defines the actions of this Character
-			spawn()
-			triggerMotion(Motion)
-			destruct()
-			etc
+		String:name
+		Player: player of le game
+		Piece: card, chess piece, etc. Item used in the game
+			Player:owner
+			Attributes	//group of variables that defines the attributes of this Character
+			Event()[]	//group of functions that defines the actions of this Character
+				spawn()
+				triggerMotion(Motion)
+				destruct()
+				etc
 					
 		
 				

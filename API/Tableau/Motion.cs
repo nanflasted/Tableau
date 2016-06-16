@@ -41,7 +41,7 @@ namespace Tableau {
 			// Check input
 			if (initiators == null || targets == null)
 				throw new MotionInitException("Attempted to make motion with null initiator/target");
-			if (getNumOccupants(initiators) == 0 || getNumOccupants(targets) == 0)
+			if (GetNumOccupants(initiators) == 0 || GetNumOccupants(targets) == 0)
 				throw new MotionInitException("Attempted to make motion with empty set of initiators/targets");
 			
 			// If input is good...
@@ -52,7 +52,7 @@ namespace Tableau {
 			// Check input
 			if (initiator == null || targets == null)
 				throw new MotionInitException("Attempted to make motion with null initiator/target");
-			if (getNumOccupants(targets) == 0)
+			if (GetNumOccupants(targets) == 0)
 				throw new MotionInitException("Attempted to make motion with empty set of targets");
 			
 			// If input is good...
@@ -63,7 +63,7 @@ namespace Tableau {
 			// Check input
 			if (initiators == null || target == null)
 				throw new MotionInitException("Attempted to make motion with null initiator/target");
-			if (getNumOccupants(initiators) == 0)
+			if (GetNumOccupants(initiators) == 0)
 				throw new MotionInitException("Attempted to make motion with empty set of initiators");
 			
 			// If input is good...
@@ -87,7 +87,7 @@ namespace Tableau {
 			// Check input
 			if (initiators == null)
 				throw new MotionChangeException("Tried to set initiator to null zones");
-			if (getNumOccupants(initiators) == 0)
+			if (GetNumOccupants(initiators) == 0)
 				throw new MotionChangeException("Tried to set initiator to empty set of zones");
 			
 			// If input is good...
@@ -107,7 +107,7 @@ namespace Tableau {
 			// Check input
 			if (targets == null)
 				throw new MotionChangeException("Tried to set target to null zones");
-			if (getNumOccupants(targets) == 0)
+			if (GetNumOccupants(targets) == 0)
 				throw new MotionChangeException("Tried to set target to empty set of zones");
 
 			// If input is good...
@@ -118,7 +118,7 @@ namespace Tableau {
 		public abstract void invoke();
 
 		// Methods used for input validation
-		private static int getNumOccupants(Zone[] zarr) {
+		private static int GetNumOccupants(Zone[] zarr) {
 			int num = 0, index = 0;
 			while (index < zarr.length) {
 				if (zarr[index] != null)
