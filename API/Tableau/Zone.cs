@@ -49,5 +49,5 @@ namespace Tableau {
         public virtual bool IsEmpty() { return occupant == null; }
     }
 
-    // TODO custom class for zones w/ many cards? e.g. a deck zone
+    // TODO custom class for zones w/ many cards? e.g. a deck zone but could be a piece
 }
