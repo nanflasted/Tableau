@@ -6,13 +6,12 @@ namespace Tableau
 {
 	public class Piece : Character
 	{
-		public string type;
-		public int ID;
+		//removed due to attribute list addition: public string type;
 		//TODO public List</*unityAnimationType*/> animations;
 		//TODO public List</*unitySoundType*/> sounds;	
-		public Player owner;
-		public GameObject prefab;	
-		public Zone location;
+		//TODO decide whether to access this way OR just use Unity getComponent(): public Player owner;
+		//TODO decide whether to access this way OR just use Unity getComponent(): public Zone location;
+		public GameObject prefab;
 		
 		public virtual void spawn()
 		{

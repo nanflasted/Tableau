@@ -4,6 +4,6 @@ using UnityEngine;
 
 namespace Tableau {
 	public abstract class Player : Character {
-		// HEY USER - OVERRIDE THIS PLS
+		// TODO public GameObject statusWindow;
 	}
 }
