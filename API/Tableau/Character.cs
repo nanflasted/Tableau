@@ -4,6 +4,7 @@ using System.Collections;
 
 namespace Tableau
 {
+	using Util;
 	public abstract class Character : GameObject {
 		public int id;
 		public string name;
