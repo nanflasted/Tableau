@@ -11,7 +11,9 @@ public class ButtonManager : MonoBehaviour {
     {
         Debug.Log("Start pressed");
         SceneManager.UnloadScene(SceneManager.GetActiveScene());
-        SceneManager.LoadScene("Game");
+        //SceneManager.LoadScene("Game");
+        //For testing purposes
+        SceneManager.LoadScene("Test");
     }
 
     public void onOption()
