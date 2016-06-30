@@ -376,7 +376,7 @@ PlayerSettings:
   metroCertificatePassword: 
   metroCertificateSubject: DefaultCompany
   metroCertificateIssuer: DefaultCompany
-  metroCertificateNotAfter: 80b958c237efd201
+  metroCertificateNotAfter: 00ebcf146ff1d201
   metroApplicationDescription: Tableau
   wsaImages: {}
   metroTileShortName: 
