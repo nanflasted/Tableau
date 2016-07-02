@@ -26,4 +26,10 @@ public class ButtonManager : MonoBehaviour {
         Debug.Log("Exit pressed");
         Application.Quit();
     }
+
+    public void onHover()
+    {
+        Debug.Log("hovered");
+
+    }
 }
