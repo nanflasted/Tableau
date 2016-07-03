@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Tableau.Util {
 	public class AttributeDict {
-		private Dictionary<string, string> dict = new Dictionary<>();
+		private Dictionary<string, string> dict = new Dictionary<string,string>();
 
 		public void Add(string attribute, string value) {
 			if (attribute == null)
 				throw new ArgumentNullException("Tried to add null-name attribute");
-			dict.Item[attribute] = value;
+			dict[attribute] = value;
 		}
 
 		public void AddAll(AttributeDict otherDict) {

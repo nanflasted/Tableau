@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 namespace Tableau {
-	public abstract class Motion {
+	public /*abstract*/ class Motion {
 		private Zone[] initiators, targets;
 
 		// Constructors (all private, called by factories)
@@ -22,7 +22,7 @@ namespace Tableau {
 			this.targets = targets;
 		}
 
-		private Motion(Zone[] initiator, Zone target) {
+		private Motion(Zone[] initiators, Zone target) {
 			this.initiators = initiators;
 			this.targets = ToSingletonArray(target);
 		}
@@ -70,11 +70,11 @@ namespace Tableau {
 			return new Motion(initiators, target);
 		}
 
-		// Getters/setters
-		public Zone[] getInitiators() { return initiators; }
-		public Zone[] getTargets() { return targets; }
+		// Getters/Setters
+		public Zone[] GetInitiators() { return initiators; }
+		public Zone[] GetTargets() { return targets; }
 
-		protected internal void setInitiators(Zone initiator) {
+		protected internal void SetInitiators(Zone initiator) {
 			// Check input
 			if (initiator == null)
 				throw new MotionChangeException("Tried to set initiator to null zone");
@@ -83,7 +83,7 @@ namespace Tableau {
 			initiators = ToSingletonArray(initiator);
 		}
 
-		protected internal void setInitiators(Zone[] initiators) {
+		protected internal void SetInitiators(Zone[] initiators) {
 			// Check input
 			if (initiators == null)
 				throw new MotionChangeException("Tried to set initiator to null zones");
@@ -94,7 +94,7 @@ namespace Tableau {
 			this.initiators = initiators;
 		}
 
-		protected internal void setTargets(Zone target) {
+		protected internal void SetTargets(Zone target) {
 			// Check input
 			if (target == null)
 				throw new MotionChangeException("Tried to set target to null zone");
@@ -103,7 +103,7 @@ namespace Tableau {
 			targets = ToSingletonArray(target);
 		}
 
-		protected internal void setTargets(Zone[] targets) {
+		protected internal void SetTargets(Zone[] targets) {
 			// Check input
 			if (targets == null)
 				throw new MotionChangeException("Tried to set target to null zones");
@@ -114,13 +114,13 @@ namespace Tableau {
 			this.targets = targets;
 		}
 
-		// Override pls
-		public abstract void invoke();
+        // Override pls
+        public virtual void Invoke() { }
 
 		// Methods used for input validation
 		private static int GetNumOccupants(Zone[] zarr) {
 			int num = 0, index = 0;
-			while (index < zarr.length) {
+			while (index < zarr.Length) {
 				if (zarr[index] != null)
 					num++;
 			}
@@ -135,14 +135,14 @@ namespace Tableau {
 	}
 	
 	public class MotionInitException : Exception {
-		public MotionInitException(string s) {
-			super(s);
+		public MotionInitException(string s) : base(s) {
+			
 		}
 	}
 
 	public class MotionChangeException : Exception {
-		public MotionChangeException(string s) {
-			super(s);
+		public MotionChangeException(string s) : base(s) {
+			
 		}
 	}
 }

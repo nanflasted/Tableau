@@ -21,7 +21,7 @@ namespace Tableau
 			//sound
 		}
 		
-		public virtual void spawn(Vector3 pos, Quarternion rot)
+		public virtual void spawn(Vector3 pos, Quaternion rot)
 		{
 			Instantiate(prefab,pos,rot);
 			//play spawn animations

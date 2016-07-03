@@ -3,14 +3,14 @@ using System.Collections;
 using UnityEngine;
 
 namespace Tableau {
-    public abstract class Zone : GameObject {
+    public abstract class Zone : MonoBehaviour {
         public Player owner;
         public GameObject prefab;
         // TODO public List</*unityAnimationType*/> animations; copied lol
         // TODO public List</*unitySoundType*/> sounds; copied lol
 
-        public Zone() {
-           this(null, null);
+        public Zone() : this(null,null){
+           
         }
 
         public Zone(Player owner, GameObject prefab) {
@@ -18,10 +18,10 @@ namespace Tableau {
             this.prefab = prefab;
         }
 
-        public abstract Piece getPiece();
-        public abstract void addPiece(Piece p);
-        public abstract void clear();
-        public abstract bool isEmpty();
+        public abstract Piece GetPiece();
+        public abstract void AddPiece(Piece p);
+        public abstract void Clear();
+        public abstract bool IsEmpty();
 
         public virtual void Start() {}  // TODO idk
         public virtual void Update() {} // TODO play anims and sounds
@@ -31,23 +31,23 @@ namespace Tableau {
         private Piece occupant;
         // TODO card/piece orientations? in subclasses?
 
-        public PieceZone() {
-            this(null, null, null);
+        public PieceZone() : base()
+        {
         }
 
-        public PieceZone(Player owner, GameObject prefab, Piece occupant) {
-            super(owner, prefab);
+        public PieceZone(Player owner, GameObject prefab, Piece occupant) : base(owner, prefab)
+        {
             this.occupant = occupant;
         }
         
-        public virtual Piece getPiece() { return occupant; }
+        public override Piece GetPiece() { return occupant; }
         
-        public virtual void addPiece(Piece p) { occupant = p; }
+        public override void AddPiece(Piece p) { occupant = p; }
 
-        public virtual void clear() { occupant = null; }
+        public override void Clear() { occupant = null; }
 
-        public virtual bool IsEmpty() { return occupant == null; }
+        public override bool IsEmpty() { return occupant == null; }
     }
-
+    
     // TODO custom class for zones w/ many cards? e.g. a deck zone but could be a piece
 }

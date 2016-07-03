@@ -5,7 +5,7 @@ using System.Collections;
 namespace Tableau
 {
 	using Util;
-	public abstract class Character : GameObject {
+	public abstract class Character : MonoBehaviour {
 		public int ID;
 		public string Name;
 		private AttributeDict attributes;

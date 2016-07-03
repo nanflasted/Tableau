@@ -1,6 +1,6 @@
 using UnityEngine;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Tableau.Time
 {
@@ -32,19 +32,19 @@ namespace Tableau.Time
 			
 		public virtual void addEvent(Action a)
 		{
-			events.enqueue(a);
+			events.Enqueue(a);
 		}
 		
 		public virtual void executeEvent()
 		{
-			events.dequeue().invoke();
+			events.Dequeue().Invoke();
 		}
 
 		public virtual void executeAll()
 		{
 			while (events.Count > 0)
 			{
-				events.dequeue().invoke();
+				events.Dequeue().Invoke();
 			}
 		}						
 			
@@ -55,7 +55,7 @@ namespace Tableau.Time
 
 		public virtual int nextPhase()
 		{
-			if (current+1>=phases.Count()) return -1;
+			if (current+1>=phases.Count) return -1;
 			current++;
 			return 0;
 		}

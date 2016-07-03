@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Tableau.Time
 {
@@ -27,19 +28,19 @@ namespace Tableau.Time
 		
 		public virtual void addEvent(Action a)
 		{
-			events.enqueue(a);
+			events.Enqueue(a);
 		}
 
 		public virtual void executeEvent()
 		{
-			events.dequeue().invoke();
+			events.Dequeue().Invoke();
 		}
 
 		public virtual void executeAll()
 		{
 			while(events.Count > 0)
 			{
-				events.dequeue().invoke();
+				events.Dequeue().Invoke();
 			}
 		}
 	}
