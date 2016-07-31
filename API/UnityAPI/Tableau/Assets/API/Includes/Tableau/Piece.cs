@@ -13,7 +13,7 @@ namespace Tableau
 		//TODO decide whether to access this way OR just use Unity getComponent(): public Zone location;
 		public GameObject prefab;
 		
-		public virtual void spawn()
+		public virtual void Spawn()
 		{
 			//acquire coordinates
 			//spawn prefab
@@ -21,7 +21,7 @@ namespace Tableau
 			//sound
 		}
 		
-		public virtual void spawn(Vector3 pos, Quaternion rot)
+		public virtual void Spawn(Vector3 pos, Quaternion rot)
 		{
 			Instantiate(prefab,pos,rot);
 			//play spawn animations
@@ -29,7 +29,7 @@ namespace Tableau
 		}
 				
 
-		public virtual void spawn(Zone z)
+		public virtual void Spawn(Zone z)
 		{
 			//acquire coordinates from z
 			//spawn prefab
@@ -37,24 +37,24 @@ namespace Tableau
 			//play sound
 		}
 
-		public virtual void destruct()
+		public virtual void Destruct()
 		{
 		}
 
-		public virtual void moveToZone(Zone z)
+		public virtual void MoveToZone(Zone z)
 		{
 			//visual effect triggered by a Motion or Motions
 		}
 
-		public virtual void playAnimation(int n)
+		public virtual void PlayAnimation(int n)
 		{
 		}
 
-		public virtual void playSound(int n)
+		public virtual void PlaySound(int n)
 		{
 		}
 
-		public virtual void triggerMotion(Motion m)
+		public virtual void TriggerMotion(Motion m)
 		{
 		}
 

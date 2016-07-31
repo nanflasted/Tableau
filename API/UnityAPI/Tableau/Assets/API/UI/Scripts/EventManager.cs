@@ -157,7 +157,6 @@ public class EventManager : MonoBehaviour {
     }
 
 
-
     void OnDestroy()
     {
         recognizer.StopCapturingGestures();
