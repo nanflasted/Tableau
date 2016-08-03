@@ -4,6 +4,8 @@ using System.Collections;
 
 public class HUDManager : MonoBehaviour {
 
+    //public GUIText
+
 	// Use this for initialization
 	void Start () {
 	
