@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class RPSGameManager : MonoBehaviour {
-   
+    //UI here or separate manager?
+
     //Cards information
 
     /*
@@ -27,6 +28,45 @@ public class RPSGameManager : MonoBehaviour {
     private int AICard;
 
     //End Card Info
+
+
+    //Player information
+    //added to keep track of win info
+    private int numWins
+    {
+        get
+        {
+            return numWins;
+        }
+        set
+        {
+            numWins += value;
+        }
+    }
+    
+    private bool wonRound
+    {
+        get
+        {
+            return wonRound;
+        }
+        set
+        {
+            wonRound = value;
+        }
+    }
+    private bool tiedRound
+    {
+        get
+        {
+            return tiedRound;
+        }
+        set
+        {
+            tiedRound = value;
+        }
+    }
+    //End Player Info
 
 
     //Singleton management
@@ -92,18 +132,64 @@ public class RPSGameManager : MonoBehaviour {
 
     private void AISelect()
     {
+        AICard = Random.Range(0, 2);
     }
 
     private void JudgeResult()
     {
+        int winVal = 0, loseVal=0;
+        switch (playerCard)
+        {
+            case 0:
+                winVal = 2;
+                loseVal = 1;
+                break;
+            case 1:
+                winVal = 0;
+                loseVal = 2;
+                break;
+            case 2:
+                winVal = 1;
+                loseVal = 0;
+                break;
+            default:
+                break;
+        }
+        if (AICard == winVal)
+        {
+            wonRound = true;
+            numWins += 1;
+        }
+        else if (AICard == loseVal)
+        {
+            wonRound = false;
+            tiedRound = false;
+        }
+        else
+        {
+            wonRound = false;
+            tiedRound = true;
+        }
     }
 
     private void DisplayResults()
     {
+        if (wonRound)
+        {
+            //set labels
+        } else if (tiedRound)
+        {
+
+        }
+        else
+        {
+
+        }
     }
 
     private void DisplayMenu()
     {
+        //switch scene to original menu
     }
     //End processing player card selection
 
