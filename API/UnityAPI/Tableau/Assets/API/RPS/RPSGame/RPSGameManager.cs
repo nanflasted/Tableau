@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*TODO:
+    -Freeze and un-freeze player
+
+ 
+     
+*/
+
 public class RPSGameManager : MonoBehaviour {
     //UI here or separate manager?
 
@@ -193,6 +200,7 @@ public class RPSGameManager : MonoBehaviour {
     {
         headsUp.disableHUD();
         //switch scene to original menu
+        //unfreeze player
     }
     //End processing player card selection
 

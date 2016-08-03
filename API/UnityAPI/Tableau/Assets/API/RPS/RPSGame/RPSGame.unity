@@ -1444,6 +1444,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef5e802249c91f4abf28a6191a20d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hud_canvas: {fileID: 659586559}
+  mainDialog: {fileID: 1485830585}
+  winCounter: {fileID: 1777149593}
+  replayButton: {fileID: 1686095782}
+  quitButton: {fileID: 252557227}
 --- !u!1 &2102417635
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,3 +1489,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 969605a0e44704644bb08f7dde6b1871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headsUp: {fileID: 1833230143}

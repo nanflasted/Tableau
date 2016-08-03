@@ -2,7 +2,12 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/*TODO:
+    -Link replay and quit buttons to their respective behaviors
+    -Set buttons events such that they respond to selection
 
+
+*/
 public class HUDManager : MonoBehaviour {
 
     public Canvas hud_canvas;
