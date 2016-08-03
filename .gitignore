@@ -25,3 +25,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Demos Folder
+Demos/*
