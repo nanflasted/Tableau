@@ -4,6 +4,8 @@ using System.Collections;
 public class RPSGameManager : MonoBehaviour {
     //UI here or separate manager?
 
+    public HUDManager headsUp;
+
     //Cards information
 
     /*
@@ -176,19 +178,20 @@ public class RPSGameManager : MonoBehaviour {
     {
         if (wonRound)
         {
-            //set labels
+            headsUp.win(numWins);
         } else if (tiedRound)
         {
-
+            headsUp.tie();
         }
         else
         {
-
+            headsUp.lose();
         }
     }
 
     private void DisplayMenu()
     {
+        headsUp.disableHUD();
         //switch scene to original menu
     }
     //End processing player card selection
