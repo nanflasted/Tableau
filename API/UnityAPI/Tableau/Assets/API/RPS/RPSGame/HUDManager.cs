@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /*TODO:
@@ -10,25 +12,19 @@ using UnityEngine.UI;
 */
 public class HUDManager : MonoBehaviour {
 
-    public Canvas hud_canvas;
+    public Canvas hud_canvas,hud_static_canvas;
     public Text mainDialog, winCounter;
     public GameObject replayButton, quitButton;
-
-    // Use this for initialization
-    void Start() {
-
-    }
-
-    // Update is called once per frame
-    void Update() {
-
-    }
-
   
+    void Awake()
+    {
+        disableHUD();
+    }
 
     public void win(int numWins)
     {
         hud_canvas.enabled = true;
+        hud_static_canvas.enabled = true;
 
         mainDialog.text = "Round Over\nCongrats!";
         winCounter.text = "Player Wins: " + numWins;
@@ -43,11 +39,11 @@ public class HUDManager : MonoBehaviour {
     public void lose()
     {
         hud_canvas.enabled = true;
-
+        hud_static_canvas.enabled = true;
         mainDialog.text = "Round Over\nSo Close!";
 
         mainDialog.enabled = true;
-        winCounter.enabled = true;
+        winCounter.enabled = false;
 
         replayButton.GetComponent<BoxCollider>().enabled = true;
         quitButton.GetComponent<BoxCollider>().enabled = true;
@@ -56,11 +52,11 @@ public class HUDManager : MonoBehaviour {
     public void tie()
     {
         hud_canvas.enabled = true;
-
+        hud_static_canvas.enabled = true;
         mainDialog.text = "Round Over\nTie!";
 
         mainDialog.enabled = true;
-        winCounter.enabled = true;
+        winCounter.enabled = false;
 
         replayButton.GetComponent<BoxCollider>().enabled = true;
         quitButton.GetComponent<BoxCollider>().enabled = true;
@@ -69,6 +65,7 @@ public class HUDManager : MonoBehaviour {
     public void disableHUD()
     {
         hud_canvas.enabled = false;
+        hud_static_canvas.enabled = false;
         mainDialog.enabled = false;
         winCounter.enabled = false;
 
@@ -76,4 +73,28 @@ public class HUDManager : MonoBehaviour {
         quitButton.GetComponent<BoxCollider>().enabled = false;
     }
     
+    public void OnReplay()
+    {
+        disableHUD();
+        foreach (CardBehaviour card in FindObjectsOfType<CardBehaviour>())
+        {
+            card.GrantCtrl();
+        }
+    }
+
+    public void OnQuit()
+    {
+        Debug.Log("Onquit");
+        SceneManager.LoadScene("RPSGUI");
+    }
+
+    public void OnGazeEnter(Text t)
+    {
+        t.color = Color.white;
+    }
+
+    public void OnGazeExit(Text t)
+    {
+        t.color = Color.grey;
+    }
 }

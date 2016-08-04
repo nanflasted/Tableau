@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /*TODO:
     -Freeze and un-freeze player
@@ -20,16 +21,17 @@ public class RPSGameManager : MonoBehaviour {
     * Paper = 1
     * Scissor = 2
     */
+    private int pCard;
     public int playerCard
     {
         get
         {
-            return playerCard;
+            return pCard;
         }
         set
         {
-            playerCard = value;
-            StopCoroutine(PlayerSelect());
+            pCard = value;
+            StopAllCoroutines();
             StartCoroutine(PlayerSelect());
         }
     }
@@ -41,40 +43,9 @@ public class RPSGameManager : MonoBehaviour {
 
     //Player information
     //added to keep track of win info
-    private int numWins
-    {
-        get
-        {
-            return numWins;
-        }
-        set
-        {
-            numWins += value;
-        }
-    }
-    
-    private bool wonRound
-    {
-        get
-        {
-            return wonRound;
-        }
-        set
-        {
-            wonRound = value;
-        }
-    }
-    private bool tiedRound
-    {
-        get
-        {
-            return tiedRound;
-        }
-        set
-        {
-            tiedRound = value;
-        }
-    }
+    private int numWins;
+    private bool wonRound;
+    private bool tiedRound;
     //End Player Info
 
 
@@ -115,28 +86,40 @@ public class RPSGameManager : MonoBehaviour {
     // process, in this method, what happens after the player selects a card
 	IEnumerator PlayerSelect()
     {
-        //TODO freeze player control
+        
         Freeze();
+        Debug.Log("Froze");
         //TODO animations
-        StartCoroutine(PostSelectAnimation());
+        yield return StartCoroutine(PostSelectAnimation());
+        Debug.Log("Anime");
         //TODO make method to generate the card for AI
-        AISelect();        
+        AISelect();
+        Debug.Log("AI");
         //TODO make method to judge
         JudgeResult();
+        Debug.Log("Judge");
         //TODO make method to display result
         DisplayResults();
-        //TODO give selection to restart game or exit
-        DisplayMenu();
+        Debug.Log("Display");
         yield return null;
     }
 
     IEnumerator PostSelectAnimation()
     {
-        yield return null;
+        yield return new WaitForSeconds(1);
+        foreach (CardBehaviour c in FindObjectsOfType<CardBehaviour>())
+        {
+            c.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            foreach (MeshRenderer m in c.gameObject.GetComponentsInChildren<MeshRenderer>()) m.enabled = false;
+        }
     }
 
     private void Freeze()
     {
+        foreach(CardBehaviour c in FindObjectsOfType<CardBehaviour>())
+        {
+            c.FreezeCtrl();
+        }
     }
 
     private void AISelect()
@@ -146,8 +129,8 @@ public class RPSGameManager : MonoBehaviour {
 
     private void JudgeResult()
     {
-        int winVal = 0, loseVal=0;
-        switch (playerCard)
+        int winVal = 0, loseVal = 0;
+        switch (pCard)
         {
             case 0:
                 winVal = 2;
@@ -196,12 +179,6 @@ public class RPSGameManager : MonoBehaviour {
         }
     }
 
-    private void DisplayMenu()
-    {
-        headsUp.disableHUD();
-        //switch scene to original menu
-        //unfreeze player
-    }
     //End processing player card selection
 
 
