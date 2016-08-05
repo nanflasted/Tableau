@@ -99,6 +99,7 @@ public class EventManager : MonoBehaviour {
 
     void Instantiate()
     {
+        //DontDestroyOnLoad(gameObject);
         recognizer = new GestureRecognizer();
         recognizer.SetRecognizableGestures(GestureSettings.Tap);
         recognizer.TappedEvent += OnTap;

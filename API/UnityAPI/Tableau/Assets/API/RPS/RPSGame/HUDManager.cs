@@ -84,7 +84,6 @@ public class HUDManager : MonoBehaviour {
 
     public void OnQuit()
     {
-        Debug.Log("Onquit");
         SceneManager.LoadScene("RPSGUI");
     }
 

@@ -10,7 +10,7 @@ public class CardBehaviour : Piece {
     //mod this script
     public AudioSource onSelectSound;
 
-    void Awake()
+    void Start()
     {
         GrantCtrl();
     }
@@ -46,12 +46,12 @@ public class CardBehaviour : Piece {
 
     public void OnGazeEnter()
     {
-        gameObject.GetComponent<Renderer>().material.color = Color.grey;
+        PlayAnimation(1);
     }
 
     public void OnGazeExit()
     {
-        gameObject.GetComponent<Renderer>().material.color = Color.white;
+        PlayAnimation(2);
     }
 
     public override void PlayAnimation(int n)
@@ -75,6 +75,20 @@ public class CardBehaviour : Piece {
             cardmat.color = Color.white;
             yield return new WaitForSeconds(0.1f);
         }
+        yield return null;
+    }
+
+    IEnumerator CardAnimation1()
+    {
+        Material cardmat = gameObject.GetComponent<Renderer>().material;
+        cardmat.color = Color.yellow;
+        yield return null;
+    }
+
+    IEnumerator CardAnimation2()
+    {
+        Material cardmat = gameObject.GetComponent<Renderer>().material;
+        cardmat.color = Color.white;
         yield return null;
     }
 }

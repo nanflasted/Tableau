@@ -6,29 +6,22 @@ public class RPSButtonManager : MonoBehaviour {
 
 	public void OnStartGame()
     {
+        
         SceneManager.LoadScene("RPSGame");
-    }
-
-    public void OnOption()
-    {
-        Debug.Log("Option pressed");
     }
 
     public void OnExit()
     {
-        Debug.Log("Exit pressed");
         Application.Quit();
     }
 
     public void OnGazeEnter(GameObject o)
     {
-        Debug.Log("Gaze Entered " + o.name);
         o.GetComponent<Renderer>().material.SetColor("_Color", Color.gray);
     }
 
     public void OnGazeExit(GameObject o)
     {
-        Debug.Log("Gaze Exited " + o.name);
         o.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
     }
 

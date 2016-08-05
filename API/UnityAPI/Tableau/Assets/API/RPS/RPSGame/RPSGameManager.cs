@@ -88,19 +88,14 @@ public class RPSGameManager : MonoBehaviour {
     {
         
         Freeze();
-        Debug.Log("Froze");
         //TODO animations
         yield return StartCoroutine(PostSelectAnimation());
-        Debug.Log("Anime");
         //TODO make method to generate the card for AI
         AISelect();
-        Debug.Log("AI");
         //TODO make method to judge
         JudgeResult();
-        Debug.Log("Judge");
         //TODO make method to display result
         DisplayResults();
-        Debug.Log("Display");
         yield return null;
     }
 
@@ -124,7 +119,7 @@ public class RPSGameManager : MonoBehaviour {
 
     private void AISelect()
     {
-        AICard = Random.Range(0, 2);
+        AICard = Random.Range(0, 3);
     }
 
     private void JudgeResult()
