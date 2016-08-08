@@ -10,3 +10,23 @@
   For Ted to prepare for the presentation
 
 5. Phase out Google Drive and use Github
+
+8/7/2016
+----------------------------------
+1. Stuff we did
+ a. Matt - RPS GUI to Othello
+ b. Ted - Implementation of board and pieces
+ c. Justin - Polished chess design for implementation
+2. Stuff to do
+ a. Start motion mechanics and check moves (See if they are legal) - Ted and Matt
+  i. Othello Game Manager
+  ii. 4x4x4, 6x6x6, 8x8x8
+  iii. For canvases, enable one disable the other
+  iv. Improve GUI?
+ b. More concrete chess schedule and good portion of implementation conpleted - Justin and James
+  i. 2d array chess board
+  ii. Pieces implemented
+  iii. Try to get some rules done?
+3. Administrative Things
+ a. None
+ 
