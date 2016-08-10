@@ -6,9 +6,15 @@ using System.Runtime.Serialization;
 
 public class OthelloPieceBehaviour : Piece {
 
-    public void Put(OthelloZoneBehaviour z,Tableau.Time.Turn turn)
+
+    public OthelloPieceBehaviour(Player owner)
     {
-        if (!OthelloGameManager.PutPieceCheck(z,turn)) { return; }
+        this.owner = owner;
+    }
+
+    public void Put(OthelloZoneBehaviour z, bool turn)
+    {
+        if (!OthelloGameManager.Instance.PutPieceCheck(z,turn)) { return; }
         base.Spawn(z.transform.position, Quaternion.identity);
         z.AddPiece(this);
     }

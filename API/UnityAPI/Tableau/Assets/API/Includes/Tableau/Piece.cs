@@ -12,7 +12,8 @@ namespace Tableau
 		//TODO decide whether to access this way OR just use Unity getComponent(): public Player owner;
 		//TODO decide whether to access this way OR just use Unity getComponent(): public Zone location;
 		public GameObject prefab;
-		
+        public Character owner;
+
 		public virtual void Spawn()
 		{
 			//acquire coordinates

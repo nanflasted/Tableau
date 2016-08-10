@@ -13,6 +13,11 @@ namespace Tableau.Time
 		public List<Phase> phases;
 		private int current = 0;
 
+        public Turn()
+        {
+
+        }
+
 		public Turn(string name, int ID)
 		{
 			this.name = name;
