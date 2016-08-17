@@ -18,6 +18,11 @@ public class OthelloBoardBehaviour : Board {
 
     new OthelloZoneBehaviour[,,] zones;
 
+    public OthelloZoneBehaviour GetZone(int i, int j, int k)
+    {
+        return zones[i, j, k];
+    }
+
     private void ConstructBoard(int size, float zoneScale = 0.1f)
     {
         this.size = size;
@@ -72,11 +77,13 @@ public class OthelloBoardBehaviour : Board {
                 }
     }
 
-
-
     void Start()
     {
         ConstructBoard(OthelloGameManager.Instance.SizeOption);
+        foreach (OthelloZoneBehaviour z in zones)
+        {
+            z.AddEventsToManager();
+        }
     }
 
 

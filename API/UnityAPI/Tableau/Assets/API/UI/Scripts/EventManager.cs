@@ -64,7 +64,7 @@ public class EventManager : MonoBehaviour {
     private static EventManager eventManager;
     private EventMap eventMap;
     private GestureRecognizer recognizer;
-
+    private bool hasControl = false;
     private int lastGazedObject;
     private bool lastGazeHit = false;
 
@@ -104,9 +104,20 @@ public class EventManager : MonoBehaviour {
         recognizer.SetRecognizableGestures(GestureSettings.Tap);
         recognizer.TappedEvent += OnTap;
         eventMap = new EventMap();
-        recognizer.StartCapturingGestures();
+        GrantControl();
     }
 
+    public void GrantControl()
+    {        
+        recognizer.StartCapturingGestures();
+        hasControl = true;
+    }
+
+    public void FreezeControl()
+    {
+        recognizer.StopCapturingGestures();
+        hasControl = false;
+    }
 
     // Tap event management, equivalent of PointClick
 
@@ -123,36 +134,39 @@ public class EventManager : MonoBehaviour {
 
     void Update()
     {
-        RaycastHit gaze;
-
-        // acquire gaze info, and if current gaze hit anything
-        if (UnityHololensUtility.getGaze(Camera.main, out gaze))
+        if (hasControl)
         {
-            int currentGazedObject = gaze.collider.gameObject.GetInstanceID();
+            RaycastHit gaze;
 
-            // if the gaze stayed on the same object, no hover events needs to be triggered again
-            if ((currentGazedObject == lastGazedObject) && (lastGazeHit))
+            // acquire gaze info, and if current gaze hit anything
+            if (UnityHololensUtility.getGaze(Camera.main, out gaze))
             {
-                return;
+                int currentGazedObject = gaze.collider.gameObject.GetInstanceID();
+
+                // if the gaze stayed on the same object, no hover events needs to be triggered again
+                if ((currentGazedObject == lastGazedObject) && (lastGazeHit))
+                {
+                    return;
+                }
+
+                // otherwise trigger point exit events for last gazed object (if there is any), and substitute the gazed object info
+                else
+                {
+                    if (lastGazeHit) eventMap.TriggerAll(TableauEventTypes.GazeExit, lastGazedObject);
+                    lastGazedObject = currentGazedObject;
+                    lastGazeHit = true;
+                    eventMap.TriggerAll(TableauEventTypes.GazeEnter, lastGazedObject);
+                }
             }
 
-            // otherwise trigger point exit events for last gazed object (if there is any), and substitute the gazed object info
+            // if current gaze doesn't hit anything
             else
             {
-                if (lastGazeHit) eventMap.TriggerAll(TableauEventTypes.GazeExit, lastGazedObject);
-                lastGazedObject = currentGazedObject;
-                lastGazeHit = true;
-                eventMap.TriggerAll(TableauEventTypes.GazeEnter, lastGazedObject);
-            }
-        }
-
-        // if current gaze doesn't hit anything
-        else
-        {
-            if (lastGazeHit)
-            {
-                eventMap.TriggerAll(TableauEventTypes.GazeExit, lastGazedObject);
-                lastGazeHit = false;
+                if (lastGazeHit)
+                {
+                    eventMap.TriggerAll(TableauEventTypes.GazeExit, lastGazedObject);
+                    lastGazeHit = false;
+                }
             }
         }
     }

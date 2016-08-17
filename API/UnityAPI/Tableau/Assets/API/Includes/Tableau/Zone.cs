@@ -22,9 +22,6 @@ namespace Tableau {
         public abstract void AddPiece(Piece p);
         public abstract void Clear();
         public abstract bool IsEmpty();
-
-        public virtual void Start() {}  // TODO idk
-        public virtual void Update() {} // TODO play anims and sounds
     }
 
     public class PieceZone : Zone {

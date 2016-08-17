@@ -189,6 +189,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 994563899}
+  - 114: {fileID: 994563900}
   m_Layer: 0
   m_Name: OthelloBoard
   m_TagString: Untagged
@@ -209,6 +210,18 @@ Transform:
   m_Father: {fileID: 977858476}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &994563900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 994563898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59cfd5a102e913a439bd185ecf51c250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
 --- !u!1 &1285523279
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +230,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1285523280}
+  - 114: {fileID: 1285523281}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -237,6 +251,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1285523281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1285523279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdac68e9962fb08408c88fb4cd06820e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardReference: {fileID: 0}
 --- !u!1 &1820645494
 GameObject:
   m_ObjectHideFlags: 0
