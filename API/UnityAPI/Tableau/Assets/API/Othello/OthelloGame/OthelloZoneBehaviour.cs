@@ -8,24 +8,43 @@ public class OthelloZoneBehaviour : PieceZone {
 
 
     private OthelloPieceBehaviour piece;
-    private UnityEvent onTapEvent,gazeEnterEvent,gazeExitEvent;
+    public UnityEvent onTapEvent,gazeEnterEvent,gazeExitEvent;
 
-    public int[] coord = new int[3];
 
-    public OthelloZoneBehaviour(int i, int j, int k)
+    public int i, j, k;
+
+    public void Initialize(int i, int j, int k)
     {
-        coord[0] = i;
-        coord[1] = j;
-        coord[2] = k;
+        this.i = i;
+        this.j = j;
+        this.k = k;
+        gameObject.GetComponent<MeshRenderer>().enabled = true;
+        gameObject.GetComponent<BoxCollider>().enabled = true;
     }
 
+    public void AddPiece(OthelloPieceBehaviour p)
+    {
+        piece = p;
+    }
+    public override bool IsEmpty()
+    {
+        return (piece == null);
+    }
     public new OthelloPieceBehaviour GetPiece()
     {
         return piece;
     }
 
+    public void setObjRef(Object o)
+    {
+        prefab = (GameObject)o;
+    }
+
     public void AddEventsToManager()
     {
+        onTapEvent = new UnityEvent();
+        gazeEnterEvent = new UnityEvent();
+        gazeExitEvent = new UnityEvent();
         onTapEvent.AddListener(OnTap);
         gazeEnterEvent.AddListener(GazeEnter);
         gazeExitEvent.AddListener(GazeExit);
@@ -41,18 +60,21 @@ public class OthelloZoneBehaviour : PieceZone {
         EventManager.instance.RemoveEvent(Tableau.Util.TableauEventTypes.GazeExit, gameObject, gazeExitEvent);
     }
 
-    private void OnTap()
+    public void OnTap()
     {
-
+        if (!OthelloGameManager.Instance.PutPieceCheck(this, OthelloGameManager.Instance.GetCurrentTurn)) { Debug.Log("illegal");/* TODO: add illegal motion visuals */return; }
+        OthelloGameManager.Instance.PutPiece(this, OthelloGameManager.Instance.GetCurrentTurn);
     }
 
-    private void GazeEnter()
+    public void GazeEnter()
     {
-
+        Material mat = gameObject.GetComponent<Renderer>().material;
+        mat.color = Color.yellow;
     }
 
-    private void GazeExit()
+    public void GazeExit()
     {
-
+        Material mat = gameObject.GetComponent<Renderer>().material;
+        mat.color = Color.grey;
     }
 }

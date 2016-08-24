@@ -16,24 +16,45 @@ public class OthelloBoardBehaviour : Board {
 
     private float zoneScale;
 
-    new OthelloZoneBehaviour[,,] zones;
+    private new OthelloZoneBehaviour[,,] zones;
 
     public OthelloZoneBehaviour GetZone(int i, int j, int k)
     {
         return zones[i, j, k];
     }
 
-    private void ConstructBoard(int size, float zoneScale = 0.1f)
+    public List<OthelloZoneBehaviour> GetAllZones()
+    {
+        List<OthelloZoneBehaviour> res = new List<OthelloZoneBehaviour>();
+        foreach (OthelloZoneBehaviour z in zones) res.Add(z);
+        return res;
+    }
+
+    public void ConstructBoard(int size, float zoneScale = 0.15f)
     {
         this.size = size;
         zones = new OthelloZoneBehaviour[size,size,size];
+        this.zoneScale = zoneScale;
         for (int i = 0; i < size; i++)
             for (int j = 0; j < size; j++)
                 for (int k =0; k < size; k++)
                 {
-                    zones[i, j, k] = new OthelloZoneBehaviour(i,j,k);
+                    GameObject z = (GameObject)Instantiate(GameObject.Find("OthelloZonePrefab"), CalculatePosition(i, j, k), Quaternion.identity);
+                    z.transform.parent = GameObject.Find("Origin").transform;
+                    zones[i, j, k] = z.GetComponent<OthelloZoneBehaviour>();
+                    zones[i, j, k].Initialize(i, j, k);
                 }
-        this.zoneScale = zoneScale;
+        GrantBoardControl();
+    }
+
+    public void DestroyBoard()
+    {
+        FreezeBoardControl();
+        foreach (OthelloZoneBehaviour z in zones)
+        {
+            if (!z.IsEmpty()) Destroy(z.GetPiece());
+            Destroy(z);
+        }
     }
 
     private Vector3 CalculatePosition(int i, int j, int k)
@@ -44,16 +65,17 @@ public class OthelloBoardBehaviour : Board {
         return new Vector3(x, y, z);
     }
 
+    /*
     private void DrawZones()
     {
         for (int i = 0; i < size; i++)
             for (int j = 0; j < size; j++)
                 for (int k = 0; k < size; k++)
                 {
-                    Instantiate(zones[i,j,k].prefab, CalculatePosition(i,j,k), Quaternion.identity);
+                    
                 }
     }
-
+    */
 
     IEnumerator MoveZone(int i, int j, int k, float factor)
     {
@@ -69,22 +91,48 @@ public class OthelloBoardBehaviour : Board {
 
     public void ExpandBoard(float factor)
     {
+        FreezeBoardControl();
         for (int i = 0; i < size; i++)
             for (int j = 0; j < size; j++)
                 for (int k = 0; k < size; k++)
                 {
                     StartCoroutine(MoveZone(i, j, k, factor));
                 }
+        GrantBoardControl();
     }
 
-    void Start()
+    public List<OthelloZoneBehaviour> GetAdjacentZones(OthelloZoneBehaviour z)
     {
-        ConstructBoard(OthelloGameManager.Instance.SizeOption);
+        List<OthelloZoneBehaviour> res = new List<OthelloZoneBehaviour>();
+        for (int i = -1; i <= 1; i++)
+            for (int j = -1; j <= 1; j++)
+                for (int k = -1; k <= 1; k++)
+                {
+                    if (i == 0 && j == 0 && k == 0) continue;
+                    if (OthelloGameManager.Instance.ValidIndex(z.i + i)&&
+                        OthelloGameManager.Instance.ValidIndex(z.j + j)&&
+                        OthelloGameManager.Instance.ValidIndex(z.k + k))
+                    {
+                        res.Add(zones[z.i+i,z.j+j,z.k+k]);
+                    }
+                }
+        return res;
+    }
+
+    public void GrantBoardControl()
+    {
         foreach (OthelloZoneBehaviour z in zones)
         {
             z.AddEventsToManager();
         }
     }
 
+    public void FreezeBoardControl()
+    {
+        foreach (OthelloZoneBehaviour z in zones)
+        {
+            z.RemoveEventsFromManager();
+        }
+    }
 
 }

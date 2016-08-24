@@ -142,7 +142,6 @@ public class EventManager : MonoBehaviour {
             if (UnityHololensUtility.getGaze(Camera.main, out gaze))
             {
                 int currentGazedObject = gaze.collider.gameObject.GetInstanceID();
-
                 // if the gaze stayed on the same object, no hover events needs to be triggered again
                 if ((currentGazedObject == lastGazedObject) && (lastGazeHit))
                 {

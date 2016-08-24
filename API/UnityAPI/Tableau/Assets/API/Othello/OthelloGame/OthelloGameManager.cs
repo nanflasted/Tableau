@@ -32,7 +32,7 @@ public class OthelloGameManager : MonoBehaviour {
 
     }
 
-    private int sizeOption;
+    private int sizeOption = 4;
     public int SizeOption
     {
         get{ return sizeOption; }
@@ -41,7 +41,7 @@ public class OthelloGameManager : MonoBehaviour {
 
     public OthelloBoardBehaviour boardReference;
 
-    private int whiteNum, blackNum;
+    private int whiteNum = 4, blackNum = 4;
     public int White
     {
         get { return whiteNum; }
@@ -63,43 +63,100 @@ public class OthelloGameManager : MonoBehaviour {
 
 
     private bool turn = false; //false = black, true = white
-    private bool playerTurn;
+    private bool playerTurn = false;
     public string PlayerTurnSelection
     {
         get { return playerTurn ? "white" : "black"; }
         set { turn = value.Equals("white"); }
     }
+    public bool PlayerTurn
+    {
+        get { return playerTurn; }
+    }
 
-    public string GetCurrentTurn
+    public string GetCurrentTurnText
     {
         get { return turn? "white" : "black"; }
     }
+    public bool GetCurrentTurn
+    {
+        get { return turn; }
+    }
 
+    void Start()
+    {
+        boardReference.ConstructBoard(sizeOption);
+        InitializeGame();        
+    }
 
+    private HashSet<OthelloZoneBehaviour> possibleZones = new HashSet<OthelloZoneBehaviour>();
 
-
-
+    private bool skipped = false;
 
     public void ChangeTurn()
     {
         turn = !turn;
-        if (turn != playerTurn) EventManager.instance.FreezeControl(); else EventManager.instance.GrantControl();
-        //TODO: Detect if there are legal moves for the current player
-        //      If not, skip turn, display on HUD
-        //      If skipped both turns, end game
+        //if (turn != playerTurn) EventManager.instance.FreezeControl(); else EventManager.instance.GrantControl();
+        foreach (OthelloZoneBehaviour z in possibleZones)
+        {
+            if (PutPieceCheck(z, turn)) return;
+        }
+
+        if (skipped)
+        {
+            Debug.Log("Ended?");
+            EndGame();
+        }
+        else
+        {
+            skipped = true;
+            /*prompt turn skip;*/
+            ChangeTurn();
+        }
     }
 
-    public void InitializeGame()
+    public bool ValidIndex(int i)
+    {
+        return (i >= 0) && (i < sizeOption);
+    }
+
+    private void InitializeGame()
     {
         White = 4;
         Black = 4;
+        skipped = false;
         int m = SizeOption / 2;
-        //TODO: add 8 pieces in the center
-        // w  - b
-        // | \  |\
-        // b -b w- w
-        //  \ |    |
-        //    w  - b
+        ForcePut(boardReference.GetZone(m - 1, m - 1, m - 1), false);
+        ForcePut(boardReference.GetZone(m, m, m), true);
+        ForcePut(boardReference.GetZone(m - 1, m , m), false);
+        ForcePut(boardReference.GetZone(m, m - 1, m - 1), true);
+        ForcePut(boardReference.GetZone(m, m, m - 1), false);
+        ForcePut(boardReference.GetZone(m - 1, m - 1, m), true);
+        ForcePut(boardReference.GetZone(m, m - 1, m), false);
+        ForcePut(boardReference.GetZone(m - 1, m, m - 1), true);
+        boardReference.ExpandBoard(3);
+        //TODO: clear display of HUD
+    }
+
+    private void EndGame()
+    {
+        boardReference.DestroyBoard();
+        //TODO: add display of results to HUD
+    }
+
+    //put piece ignoring rules other than the "no putting pieces in occupied zones" rule
+    public bool ForcePut(OthelloZoneBehaviour z, bool turn)
+    {
+        if (!z.IsEmpty()) return false;
+        OthelloPieceBehaviour newPiece = new GameObject().AddComponent<OthelloPieceBehaviour>();
+        newPiece = newPiece.Put(z, turn);
+        newPiece.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        foreach (OthelloZoneBehaviour a in boardReference.GetAdjacentZones(z))
+        {
+            if (a.IsEmpty()) possibleZones.Add(a);
+        }
+        possibleZones.Remove(z);
+        return true;
     }
 
     public bool PutPieceCheck(OthelloZoneBehaviour z, bool turn)
@@ -110,21 +167,21 @@ public class OthelloGameManager : MonoBehaviour {
                 for (int k = -1; k <= 1; k++)
                 {
                     if (i == 0 && j == 0 && k == 0) continue;
-                    int zi = z.coord[0], zj = z.coord[1], zk = z.coord[2];
+                    int zi = z.i, zj = z.j, zk = z.k;
                     int dist = 0;
                     OthelloPieceBehaviour currPiece;
                     while(
-                            zi>=0 && zi<=SizeOption && 
-                            zj>=0 && zj<=SizeOption && 
-                            zk>=0 && zk<=SizeOption                            
+                            ValidIndex(zi + i) &&
+                            ValidIndex(zj + j) &&
+                            ValidIndex(zk + k)
                          )
                     {
                         zi += i; zj += j; zk += k; dist++;
                         currPiece = boardReference.GetZone(zi, zj, zk).GetPiece();
                         if (!currPiece) break;
-                        if (currPiece.Color == z.GetPiece().Color)
+                        if (currPiece.GetColor == turn && dist > 1)
                         {
-                            return dist > 1;
+                            return true;
                         }
                     }
                 }
@@ -133,42 +190,43 @@ public class OthelloGameManager : MonoBehaviour {
 
     public void PutPiece(OthelloZoneBehaviour z, bool turn)
     {
+        OthelloPieceBehaviour newPiece = new GameObject().AddComponent<OthelloPieceBehaviour>();
+        newPiece = newPiece.Put(z, turn);
+        newPiece.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        if (turn) whiteNum += 1; else blackNum += 1;
         for (int i = -1; i <= 1; i++)
             for (int j = -1; j <= 1; j++)
                 for (int k = -1; k <= 1; k++)
                 {
                     if (i == 0 && j == 0 && k == 0) continue;
-                    int zi = z.coord[0], zj = z.coord[1], zk = z.coord[2];
+                    int zi = z.i, zj = z.j, zk = z.k;
                     OthelloPieceBehaviour currPiece;
                     List<OthelloPieceBehaviour> toFlip = new List<OthelloPieceBehaviour>();
                     while (
-                            zi > 0 && zi < SizeOption &&
-                            zj > 0 && zj < SizeOption &&
-                            zk > 0 && zk < SizeOption
+                            ValidIndex(zi + i) &&
+                            ValidIndex(zj + j) &&
+                            ValidIndex(zk + k)
                          )
                     {
                         zi += i; zj += j; zk += k;
                         currPiece = boardReference.GetZone(zi, zj, zk).GetPiece();
                         if (!currPiece) break;
-                        if (currPiece.Color == z.GetPiece().Color)
+                        if (currPiece.GetColor == /*z.GetPiece().GetColor*/turn)
                         {
-                            foreach(OthelloPieceBehaviour p in toFlip) { p.Flip(); }
+                            foreach (OthelloPieceBehaviour p in toFlip) { p.Flip(); }
                             break;
                         }
                         toFlip.Add(currPiece);
                     }
                 }
-        //TODO: add tracker for number of black/white pieces on the board
+        foreach (OthelloZoneBehaviour a in boardReference.GetAdjacentZones(z))
+        {
+            if (a.IsEmpty()) possibleZones.Add(a);
+        }
+        possibleZones.Remove(z);
         ChangeTurn();
     }
     
-    void EndGame()
-    {
-        foreach(OthelloZoneBehaviour z in boardReference.zones)
-        {
-            z.RemoveEventsFromManager();
-        }
-        //TODO: add display of results to HUD
-    }
-
+   
+    
 }
