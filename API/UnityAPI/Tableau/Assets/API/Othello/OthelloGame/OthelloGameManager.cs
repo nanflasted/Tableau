@@ -48,7 +48,7 @@ public class OthelloGameManager : MonoBehaviour {
         set
         {
             whiteNum = value;
-            //TODO: change the number on HUD
+            OthelloHUDManager.WhiteNum(value);
         }
     }
     public int Black
@@ -57,7 +57,7 @@ public class OthelloGameManager : MonoBehaviour {
         set
         {
             blackNum = value;
-            //TODO: change the number on HUD
+            OthelloHUDManager.BlackNum(value);
         }
     }
 
@@ -96,6 +96,7 @@ public class OthelloGameManager : MonoBehaviour {
     public void ChangeTurn()
     {
         turn = !turn;
+        OthelloHUDManager.Prompt(GetCurrentTurnText + " player's turn!");
         //if (turn != playerTurn) EventManager.instance.FreezeControl(); else EventManager.instance.GrantControl();
         foreach (OthelloZoneBehaviour z in possibleZones)
         {
@@ -110,7 +111,7 @@ public class OthelloGameManager : MonoBehaviour {
         else
         {
             skipped = true;
-            /*prompt turn skip;*/
+            OthelloHUDManager.Prompt("No valid move for " + GetCurrentTurnText + "player, turn skipped!");
             ChangeTurn();
         }
     }
@@ -134,14 +135,23 @@ public class OthelloGameManager : MonoBehaviour {
         ForcePut(boardReference.GetZone(m - 1, m - 1, m), true);
         ForcePut(boardReference.GetZone(m, m - 1, m), false);
         ForcePut(boardReference.GetZone(m - 1, m, m - 1), true);
-        boardReference.ExpandBoard(3);
-        //TODO: clear display of HUD
+        OthelloHUDManager.ClearDisplayOnStart();
     }
 
     private void EndGame()
     {
         boardReference.DestroyBoard();
-        //TODO: add display of results to HUD
+        OthelloHUDManager.DisplayEndgame(White > Black);
+    }
+
+    public void ExpandBoard()
+    {
+        boardReference.ExpandBoard(4);
+    }
+
+    public void ContractBoard()
+    {
+        boardReference.ExpandBoard(0.25f);
     }
 
     //put piece ignoring rules other than the "no putting pieces in occupied zones" rule
