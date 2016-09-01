@@ -30,6 +30,13 @@ public class OthelloButtonManager : MonoBehaviour {
         o.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
     }
 
+    public void OnGazeExitChosen(GameObject o)
+    {
+        o.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+
+    }
+
+
     /*
      * not working. There might be a way to do this without having to add a reference in the Editor
      * but will have to figure it out

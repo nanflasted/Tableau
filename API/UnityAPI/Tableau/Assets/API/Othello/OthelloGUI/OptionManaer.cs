@@ -2,6 +2,12 @@
 using System.Collections;
 
 //TODO:  Change GUI to show whether options have been changed?
+/*
+ * Options:
+ * Grid Size    4x4x4 | 6x6x6 | 8x8x8
+ * Opponent     Player | AI
+ * 
+ */
 
 public class OptionManaer : MonoBehaviour {
 
@@ -11,6 +17,8 @@ public class OptionManaer : MonoBehaviour {
 
     private string def_options, current_options, temp_options;
 
+    public SizeManager sm;
+    
     public void OnOptionsEnter()
     {
         title_screen.SetActive(false);
@@ -52,4 +60,18 @@ public class OptionManaer : MonoBehaviour {
             option_buttons[i].SetActive(false);
         }
     }
+
+    public void OnGridToggle()
+    {
+        //
+        string temp = this.GetComponentInChildren<TextMesh>().text;
+        sm.gridSize = temp[0] - '0';
+    }
+
+    public void OnOpponentToggle()
+    {
+        //get value of clicked object, change color of clicked button?
+
+    }
+
 }
