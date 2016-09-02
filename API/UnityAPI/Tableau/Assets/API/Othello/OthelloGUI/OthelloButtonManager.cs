@@ -7,12 +7,17 @@ public class OthelloButtonManager : MonoBehaviour {
 	public void OnStartGame()
     {
         
-        SceneManager.LoadScene("RPSGame");
+        SceneManager.LoadScene("OthelloGame");
     }
 
     public void OnOptionsMenu()
     {
         //Load Option Scene
+    }
+
+    public void OnQuit()
+    {
+        SceneManager.LoadScene("OthelloGUI");
     }
 
     public void OnExit()

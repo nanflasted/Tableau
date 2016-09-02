@@ -61,10 +61,10 @@ public class OptionManaer : MonoBehaviour {
         }
     }
 
-    public void OnGridToggle()
+    public void OnGridToggle(GameObject go)
     {
         //
-        string temp = this.GetComponentInChildren<TextMesh>().text;
+        string temp = go.GetComponentInChildren<TextMesh>().text;
         sm.gridSize = temp[0] - '0';
     }
 

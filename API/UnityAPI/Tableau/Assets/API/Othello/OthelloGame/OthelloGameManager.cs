@@ -85,7 +85,12 @@ public class OthelloGameManager : MonoBehaviour {
 
     void Start()
     {
+        //sizeOption = SizeManager.gridSize;
+        SizeManager sm = FindObjectOfType<SizeManager>();
+        sizeOption = (!sm)?4:sm.gridSize;
+        Debug.Log((!sm) ? "No SizeMgr found" : sm.gridSize.ToString());
         boardReference.ConstructBoard(sizeOption);
+        playerTurn = Random.Range(0, 2) <= 1;
         InitializeGame();        
     }
 
@@ -96,8 +101,17 @@ public class OthelloGameManager : MonoBehaviour {
     public void ChangeTurn()
     {
         turn = !turn;
-        OthelloHUDManager.Prompt(GetCurrentTurnText + " player's turn!");
-        //if (turn != playerTurn) EventManager.instance.FreezeControl(); else EventManager.instance.GrantControl();
+        if (turn != playerTurn)
+        {
+            OthelloHUDManager.Prompt(GetCurrentTurnText + "AI's turn!");
+            EventManager.instance.FreezeControl();
+            AIPlay();
+        }
+        else
+        {
+            OthelloHUDManager.Prompt(GetCurrentTurnText + "Player's turn!");
+            EventManager.instance.GrantControl();
+        }
         foreach (OthelloZoneBehaviour z in possibleZones)
         {
             if (PutPieceCheck(z, turn)) return;
@@ -136,6 +150,8 @@ public class OthelloGameManager : MonoBehaviour {
         ForcePut(boardReference.GetZone(m, m - 1, m), false);
         ForcePut(boardReference.GetZone(m - 1, m, m - 1), true);
         OthelloHUDManager.ClearDisplayOnStart();
+        ExpandBoard();
+        if (turn != playerTurn) { AIPlay(); }
     }
 
     private void EndGame()
@@ -235,6 +251,21 @@ public class OthelloGameManager : MonoBehaviour {
         }
         possibleZones.Remove(z);
         ChangeTurn();
+    }
+
+    private void AIPlay()
+    {
+        foreach(OthelloZoneBehaviour z in boardReference.GetAllZones())
+        {
+            if (possibleZones.Contains(z))
+            {
+                if (PutPieceCheck(z,turn))
+                {
+                    PutPiece(z, turn);
+                    break;
+                }
+            }
+        }
     }
     
    

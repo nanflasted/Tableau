@@ -62,7 +62,7 @@ public class OthelloZoneBehaviour : PieceZone {
 
     public void OnTap()
     {
-        if (!OthelloGameManager.Instance.PutPieceCheck(this, OthelloGameManager.Instance.GetCurrentTurn)) { Debug.Log("illegal");/* TODO: add illegal motion visuals */return; }
+        if (!OthelloGameManager.Instance.PutPieceCheck(this, OthelloGameManager.Instance.GetCurrentTurn)) { Debug.Log("illegal");OthelloHUDManager.Prompt("Illegal Move!"); return; }
         OthelloGameManager.Instance.PutPiece(this, OthelloGameManager.Instance.GetCurrentTurn);
     }
 
