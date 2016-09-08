@@ -1,0 +1,140 @@
+fileFormatVersion: 2
+guid: 1844dcdac961f1048b8c59f60b2a83fd
+timeCreated: 1473297859
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Camera001
+    100002: Camera001.Target
+    100004: Cone001
+    100006: Cone002
+    100008: Cylinder001
+    100010: Hedra001
+    100012: Line001
+    100014: Pyramid001
+    100016: Pyramid002
+    100018: Pyramid003
+    100020: Pyramid004
+    100022: //RootNode
+    100024: Sphere002
+    100026: Sphere003
+    100028: Torus Knot001
+    100030: Torus001
+    400000: Camera001
+    400002: Camera001.Target
+    400004: Cone001
+    400006: Cone002
+    400008: Cylinder001
+    400010: Hedra001
+    400012: Line001
+    400014: Pyramid001
+    400016: Pyramid002
+    400018: Pyramid003
+    400020: Pyramid004
+    400022: //RootNode
+    400024: Sphere002
+    400026: Sphere003
+    400028: Torus Knot001
+    400030: Torus001
+    2300000: Cone001
+    2300002: Cone002
+    2300004: Cylinder001
+    2300006: Hedra001
+    2300008: Pyramid001
+    2300010: Pyramid002
+    2300012: Pyramid003
+    2300014: Pyramid004
+    2300016: Sphere002
+    2300018: Sphere003
+    2300020: Torus Knot001
+    2300022: Torus001
+    3300000: Cone001
+    3300002: Cone002
+    3300004: Cylinder001
+    3300006: Hedra001
+    3300008: Pyramid001
+    3300010: Pyramid002
+    3300012: Pyramid003
+    3300014: Pyramid004
+    3300016: Sphere002
+    3300018: Sphere003
+    3300020: Torus Knot001
+    3300022: Torus001
+    4300000: Cone001
+    4300002: Torus001
+    4300004: Sphere002
+    4300006: Torus Knot001
+    4300008: Hedra001
+    4300010: Cylinder001
+    4300012: Cone002
+    4300014: Sphere003
+    4300016: Pyramid001
+    4300018: Pyramid002
+    4300020: Pyramid003
+    4300022: Pyramid004
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
